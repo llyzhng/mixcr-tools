@@ -1,5 +1,4 @@
 library(optparse)
-library(tidyverse)
 
 # ===================================================================================== #
 # Command line arguments
@@ -10,7 +9,7 @@ option_list = list(
   make_option(c("-y", "--table2"), type="character", default=NULL,
               help="second clone table to combine", metavar="character"),
   make_option(c("-o", "--outfile"), type="numeric", default=NULL,
-              help="path for output combined tabled", metavar="numeric")
+              help="path for output combined tabled", metavar="character")
 )
 
 opt_parser = OptionParser(option_list=option_list);
