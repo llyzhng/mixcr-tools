@@ -8,7 +8,7 @@ option_list = list(
               help="first clone table to combine", metavar="character"),
   make_option(c("-y", "--table2"), type="character", default=NULL,
               help="second clone table to combine", metavar="character"),
-  make_option(c("-o", "--outfile"), type="numeric", default=NULL,
+  make_option(c("-o", "--outfile"), type="character", default=NULL,
               help="path for output combined tabled", metavar="character")
 )
 
