@@ -41,5 +41,7 @@ if (any(grepl("uniqueUMI", colnames(x)))) {
 }
 colnames(collapsed_x)[3] <- "cloneFraction"
 
+collapsed_x <- collapsed_x[order(-collapsed_x$cloneFraction), ]
+
 write.table(collapsed_x, opt$outfile, 
             sep = "\t", quote = F, row.names = F, col.names = T)
