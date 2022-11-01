@@ -32,6 +32,7 @@ if (!hasGeneCols) {
 }
 
 x$VDJ <- paste(x$bestVGene, x$bestDGene, x$bestJGene, sep = "|")
+x$nSeqCDR3[is.na(x$nSeqCDR3)] <- ""
 
 # use UMI if available 
 if (any(grepl("uniqueUMI", colnames(x)))) {
