@@ -35,11 +35,11 @@ x$VDJ <- paste(x$bestVGene, x$bestDGene, x$bestJGene, sep = "|")
 
 # use UMI if available 
 if (any(grepl("uniqueUMI", colnames(x)))) {
-  collapsed_x <- aggregate(uniqueUMIFraction ~ VDJ + nSeqCDR3, x, FUN=sum)
+  collapsed_x <- aggregate(cbind(uniqueUMICount, uniqueUMIFraction) ~ VDJ + nSeqCDR3, data = x, FUN=sum)
 } else {
-  collapsed_x <- aggregate(readFraction ~ VDJ + nSeqCDR3, x, FUN=sum)
+  collapsed_x <- aggregate(cbind(readCount, readFraction) ~ VDJ + nSeqCDR3, data = x, FUN=sum)
 }
-colnames(collapsed_x)[3] <- "cloneFraction"
+colnames(collapsed_x)[4] <- "cloneFraction"
 
 collapsed_x <- collapsed_x[order(-collapsed_x$cloneFraction), ]
 
