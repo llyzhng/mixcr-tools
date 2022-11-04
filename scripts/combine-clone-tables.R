@@ -23,10 +23,12 @@ t2 <- read.delim(opt$table2)
 comb <- rbind(t1, t2)
 totalReads <- sum(comb$readCount)
 comb$readFraction <- comb$readCount / totalReads
+comb <- comb[order(-comb$readFraction), ]
 
 if (any(grepl("uniqueUMI", colnames(comb)))) {
   totalUMI <- sum(comb$uniqueUMICount)
   comb$uniqueUMIFraction <- comb$uniqueUMICount / totalUMI
+  comb <- comb[order(-comb$uniqueUMIFraction), ]
 } 
 
 write.table(comb, opt$outfile, 
