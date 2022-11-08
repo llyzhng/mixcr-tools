@@ -19,7 +19,7 @@ opt = parse_args(opt_parser)
 
 # ===================================================================================== #
 
-x <- read.delim(opt$infile)
+x <- read.delim(opt$infile, stringsAsFactors = F)
 
 # check if table has columns bestVGene, bestJGene, bestDGene
 hasGeneCols <- any(any(grepl("bestVGene", colnames(x))),
