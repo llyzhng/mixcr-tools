@@ -42,13 +42,13 @@ x$nSeqCDR3[is.na(x$nSeqCDR3)] <- ""
 if (any(grepl("uniqueUMI", colnames(x)))) {
   # use UMI if available
   collapsed_x <- aggregate(cbind(uniqueUMICount, uniqueUMIFraction) ~ VDJ + nSeqCDR3, data = x, FUN=sum)
-  collapsed_x <- collapsed_x[uniqueUMICount >= opt$umi_threshold, ]
+  collapsed_x <- collapsed_x[collapsed_x$uniqueUMICount >= opt$umi_threshold, ]
   new_sum <- sum(collapsed_x$uniqueUMICount)
   collapsed_x$cloneFraction <- collapsed_x$uniqueUMICount / new_sum
 } else {
   # use read count
   collapsed_x <- aggregate(cbind(readCount, readFraction) ~ VDJ + nSeqCDR3, data = x, FUN=sum)
-  collapsed_x <- collapsed_x[readCount >= opt$read_threshold, ]
+  collapsed_x <- collapsed_x[collapsed_x$readCount >= opt$read_threshold, ]
   new_sum <- sum(collapsed_x$readCount)
   collapsed_x$cloneFraction <- collapsed_x$readCount / new_sum
 }
