@@ -2,7 +2,9 @@
 
 Helper scripts to process clone tables from [MiXCR](https://docs.milaboratories.com/)
 
-1. Combine two clones tables for different chains (e.g. clones_IGL.tsv and clones_IGK.tsv)
+Only dependency is R package `optparse`. 
+
+1. Combine two clones tables (e.g. clones_IGL.tsv and clones_IGK.tsv)
 
      The readFraction and/or uniqueUMIFraction is recalculated for the merged table
 
