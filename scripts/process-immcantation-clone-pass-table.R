@@ -8,9 +8,9 @@ option_list = list(
   make_option(c("-i", "--infile"), type="character", default=NULL,
               help="path for clone table to collapse", metavar="character"),
   make_option(c("-o", "--out_heavy"), type="character", default=NULL,
-              help="path for csv with output heavy chain clones", metavar="character"),
+              help="path for tsv with output heavy chain clones", metavar="character"),
   make_option(c("-l", "--out_light"), type="character", default=NULL,
-              help="path for csv with output light chain clones to keep clone", metavar="character")
+              help="path for tsv with output light chain clones to keep clone", metavar="character")
 )
 
 opt_parser = OptionParser(option_list=option_list);
