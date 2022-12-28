@@ -74,7 +74,7 @@ if (nrow(clones_heavy) >= 1) {
   clones_heavy_consensus <- clones_heavy %>% 
   generateConsensusClones()
   write.table(clones_heavy_consensus, opt$out_heavy,
-              sep = ",", quote = F, row.names = F, col.names = T)
+              sep = "\t", quote = F, row.names = F, col.names = T)
 } else {
   message("No heavy chain clones")
 }
@@ -86,7 +86,7 @@ if (nrow(clones_light) >= 1) {
   clones_light_consensus <- clones_light %>% 
     generateConsensusClones()
   write.table(clones_light_consensus, opt$out_light,
-              sep = ",", quote = F, row.names = F, col.names = T)
+              sep = "\t", quote = F, row.names = F, col.names = T)
 } else {
   message("No light chain clones")
 }
