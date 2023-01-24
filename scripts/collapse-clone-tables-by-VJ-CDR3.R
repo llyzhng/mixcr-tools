@@ -43,14 +43,22 @@ if (any(grepl("uniqueUMI", colnames(x)))) {
   collapsed_x <- collapsed_x[collapsed_x$uniqueUMICount >= opt$umi_threshold, ]
   new_sum <- sum(collapsed_x$uniqueUMICount)
   collapsed_x$cloneFraction <- collapsed_x$uniqueUMICount / new_sum
+  collapsed_x$uniqueUMIFraction <- NULL
+} else if (any(grepl("uniqueMolecule", colnames(x)))) {
+  # use unique molecule 
+  collapsed_x <- aggregate(cbind(uniqueMoleculeCount, uniqueMoleculeFraction) ~ VJ + nSeqCDR3, data = x, FUN=sum)
+  collapsed_x <- collapsed_x[collapsed_x$uniqueMoleculeCount >= opt$umi_threshold, ]
+  new_sum <- sum(collapsed_x$uniqueMoleculeCount)
+  collapsed_x$cloneFraction <- collapsed_x$uniqueMoleculeCount / new_sum
+  collapsed_x$uniqueMoleculeFraction <- NULL
 } else {
   # use read count
   collapsed_x <- aggregate(cbind(readCount, readFraction) ~ VJ + nSeqCDR3, data = x, FUN=sum)
   collapsed_x <- collapsed_x[collapsed_x$readCount >= opt$read_threshold, ]
   new_sum <- sum(collapsed_x$readCount)
   collapsed_x$cloneFraction <- collapsed_x$readCount / new_sum
+  collapsed_x$readFraction <- NULL
 }
-colnames(collapsed_x)[4] <- "cloneFraction"
 
 collapsed_x <- collapsed_x[order(-collapsed_x$cloneFraction), ]
 
