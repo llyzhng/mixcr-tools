@@ -29,31 +29,33 @@ if (!hasGeneCols) {
   getName <- function(x) {
     gsub("\\*.*", "", x)
   }
-  x$bestVGene <- getName(x$allVHitsWithScore)
-  x$bestJGene <- getName(x$allJHitsWithScore)
+  x$V <- getName(x$allVHitsWithScore)
+  x$J <- getName(x$allJHitsWithScore)
+} else {
+  colnames(x)[which(colnames(x) == "bestVGene")] <- "V"
+  colnames(x)[which(colnames(x) == "bestJGene")] <- "J"
 }
 
-x$VJ <- paste(x$bestVGene, x$bestJGene, sep = "|")
 x$nSeqCDR3[is.na(x$nSeqCDR3)] <- ""
 
  
 if (any(grepl("uniqueUMI", colnames(x)))) {
   # use UMI if available
-  collapsed_x <- aggregate(cbind(uniqueUMICount, uniqueUMIFraction) ~ VJ + nSeqCDR3, data = x, FUN=sum)
+  collapsed_x <- aggregate(cbind(uniqueUMICount, uniqueUMIFraction) ~ V + J + nSeqCDR3, data = x, FUN=sum)
   collapsed_x <- collapsed_x[collapsed_x$uniqueUMICount >= opt$umi_threshold, ]
   new_sum <- sum(collapsed_x$uniqueUMICount)
   collapsed_x$cloneFraction <- collapsed_x$uniqueUMICount / new_sum
   collapsed_x$uniqueUMIFraction <- NULL
 } else if (any(grepl("uniqueMolecule", colnames(x)))) {
   # use unique molecule 
-  collapsed_x <- aggregate(cbind(uniqueMoleculeCount, uniqueMoleculeFraction) ~ VJ + nSeqCDR3, data = x, FUN=sum)
+  collapsed_x <- aggregate(cbind(uniqueMoleculeCount, uniqueMoleculeFraction) ~ V + J + nSeqCDR3, data = x, FUN=sum)
   collapsed_x <- collapsed_x[collapsed_x$uniqueMoleculeCount >= opt$umi_threshold, ]
   new_sum <- sum(collapsed_x$uniqueMoleculeCount)
   collapsed_x$cloneFraction <- collapsed_x$uniqueMoleculeCount / new_sum
   collapsed_x$uniqueMoleculeFraction <- NULL
 } else {
   # use read count
-  collapsed_x <- aggregate(cbind(readCount, readFraction) ~ VJ + nSeqCDR3, data = x, FUN=sum)
+  collapsed_x <- aggregate(cbind(readCount, readFraction) ~ V + J + nSeqCDR3, data = x, FUN=sum)
   collapsed_x <- collapsed_x[collapsed_x$readCount >= opt$read_threshold, ]
   new_sum <- sum(collapsed_x$readCount)
   collapsed_x$cloneFraction <- collapsed_x$readCount / new_sum
